@@ -4,7 +4,7 @@ import { Entypo } from "@expo/vector-icons";
 
 import { Button, CustomText } from "../atoms";
 import { Colors, Fonts } from "../../styles";
-const LocationAlert = () => {
+const LocationAlert = ({ onPress }) => {
   return (
     <View style={[styles.root, styles.shadow]}>
       <TouchableOpacity style={styles.cancelButton}>
@@ -24,7 +24,7 @@ const LocationAlert = () => {
             color={Colors.white}
             style={{ fontSize: 17, marginBottom: 10 }}
           />
-          <Button value="Allow location" />
+          <Button value="Allow location" onPress={onPress} />
         </View>
         <Image
           source={{

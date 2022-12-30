@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
+import { Fonts } from "../../styles";
 
 const customStyle = (type) => {
   if (type === "title") {
@@ -22,7 +23,7 @@ const CustomText = ({
           customStyle(type),
           {
             color: color ? color : "#EFF3F7",
-            fontFamily: font ? font : "Regular",
+            fontFamily: font ? font : Fonts.OpenSans.Regular,
           },
           style,
         ]}

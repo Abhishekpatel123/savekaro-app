@@ -1,27 +1,17 @@
-import person from "../icons/person.png";
-import refer from "../icons/refer.png";
-import share from "../icons/share.png";
-import help from "../icons/help.png";
-import support from "../icons/support.png";
-import password from "../icons/password.png";
-import house from "../icons/house.png";
-
 import {
   MaterialCommunityIcons,
   AntDesign,
   MaterialIcons,
 } from "@expo/vector-icons";
-import { Colors } from "../src/styles";
+import { Colors } from "../../styles";
 
-const data = [
+const topLinks = [
   {
-    // icon: house,
-    text: "Home",
+    text: "Dashboard",
     route: "Home",
     icon: <AntDesign name="home" size={24} color={Colors.primary.light} />,
   },
   {
-    // icon: person,
     text: "My Profile",
     route: "profile",
     icon: (
@@ -33,7 +23,6 @@ const data = [
     ),
   },
   {
-    // icon: refer,
     text: "Refer a  Friend",
     route: "refer",
     icon: (
@@ -45,13 +34,11 @@ const data = [
     ),
   },
   {
-    // icon: share,
     text: "Share & Rate",
     route: "refer",
     icon: <AntDesign name="sharealt" size={24} color={Colors.primary.light} />,
   },
   {
-    // icon: support,
     text: "Support",
     route: "support",
     icon: (
@@ -63,7 +50,6 @@ const data = [
     ),
   },
   {
-    // icon: password,
     text: "Change Password",
     route: "ChangePassword",
     icon: (
@@ -76,4 +62,18 @@ const data = [
   },
 ];
 
-export default data;
+const bottomLinks = [
+  {
+    text: "Logout",
+    route: "Logout",
+    icon: (
+      <MaterialCommunityIcons
+        name="logout-variant"
+        size={24}
+        color={Colors.primary.light}
+      />
+    ),
+  },
+];
+
+export default { topLinks, bottomLinks };

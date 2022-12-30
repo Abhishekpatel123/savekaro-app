@@ -40,7 +40,7 @@ const OfferCard = ({ onPress, item }) => {
           />
           <CustomText value="Amazon.com" font={Fonts.RobotoMono.Thin} />
         </View>
-        <Button value="Shop now" />
+        <Button value="Shop now" onPress={onPress} />
       </View>
     </View>
   );

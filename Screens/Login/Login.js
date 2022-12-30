@@ -90,7 +90,8 @@ const Login = ({ navigation }) => {
             setLoading(false);
           }
         })
-        .catch(() => {
+        .catch((err) => {
+          console.log(err, "err");
           alert("Email/Password is incorrect");
           setLoading(false);
         })

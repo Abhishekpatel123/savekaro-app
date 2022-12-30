@@ -14,13 +14,13 @@ const MenuData = [
     title: "All",
     subTitle: "Deals",
     icon: selectAll,
-    background: orange,
+    background: "orange",
   },
   {
     title: "Restaurant",
     subTitle: "Deals",
     icon: resturant,
-    background: blue,
+    background: "blue",
   },
   // {
   //   title: "Buffet",
@@ -32,7 +32,7 @@ const MenuData = [
     title: "Spa",
     subTitle: "Deals",
     icon: spa,
-    background: lightblue,
+    background: "lightblue",
   },
   // {
   //   title: "Gift",
@@ -44,7 +44,7 @@ const MenuData = [
     title: "Saloon",
     subTitle: "Deals",
     icon: salon,
-    background: yellow,
+    background: "yellow",
   },
 ];
 

@@ -120,42 +120,37 @@ const Home = ({ navigation }) => {
 
   if (loading) return <Spinner visible={loading} textContent="Loading..." />;
 
-  const processData = (data) => {
-    if (data) return data + ",";
-    else return "";
-  };
+  const processData = (data) => (data ? data + "," : "");
+
+  const locationText = `Location - ${processData(
+    location?.street
+  )} ${processData(location?.city)}${processData(location.state)} ${processData(
+    location.postalCode
+  )} ${processData(location?.country)}`;
 
   return (
     <ScrollView style={styles.root}>
-      <LocationAlert />
       {location.region ? (
-        <Text style={styles.location}>
-          {/* Location: */}
-          {`${processData(location?.street)} ${processData(
-            location?.city
-          )}${processData(location.state)} ${processData(
-            location.postalCode
-          )} ${processData(location?.country)}`}
-        </Text>
+        <CustomText
+          style={{ textAlign: "center", marginTop: 10 }}
+          value={locationText}
+        />
       ) : (
-        <TouchableOpacity onPress={getLocation}>
-          <Text style={styles.location}>Get Location</Text>
-        </TouchableOpacity>
+        <LocationAlert onPress={getLocation} />
       )}
-
-      {/* <RowCategory handleFilterChange={handleFilterChange} /> */}
-
-      {/* TOP DEALS */}
-      <TopDeals deals={filterAdvert} />
 
       {/* SHOP BY CATEGORY */}
       <ShopByCategory deals={filterAdvert} />
+      {/* <RowCategory handleFilterChange={handleFilterChange} /> */}
+
+      {/* TOP DEALS */}
+      <TopDeals deals={filterAdvert} navigation={navigation} />
 
       {/* ALL SHOPS */}
       <ALlShops deals={filterAdvert} />
 
       {/* Top Hotels */}
-      <View style={{ margin: 15 }}>
+      {/* <View style={{ margin: 15 }}>
         <Header title="Advertise Panel" />
 
         <ScrollView
@@ -174,7 +169,7 @@ const Home = ({ navigation }) => {
             ))}
           </View>
         </ScrollView>
-      </View>
+      </View> */}
       <CategoryModel
         isFilter={isFilter}
         handleFilterChange={handleFilterChange}
@@ -199,9 +194,8 @@ const styles = StyleSheet.create({
     color: "red",
   },
   root: {
-    // backgroundColor: "white",
     backgroundColor: Colors.primary.main,
-    paddingTop: 5,
+    paddingBottom: 50,
   },
 });
 

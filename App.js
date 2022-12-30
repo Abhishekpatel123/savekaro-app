@@ -5,7 +5,7 @@ import Store from "./Store/store";
 import { Provider } from "react-redux";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import DrawerNavigation from "./DrawerNav/DrawerNavigation";
+import { Drawer } from "./src/navigation";
 import Register from "./Screens/Register/Register";
 import NetInfo from "@react-native-community/netinfo";
 import NoInternet from "./Screens/NoInternet/NoInternet";
@@ -23,20 +23,34 @@ const App = () => {
 
   // FONT
   const [fontsLoaded] = useFonts({
-    Bold: require("./src/assets/fonts/RobotoMono-Bold.ttf"),
-    "Bold-Italic": require("./src/assets/fonts/RobotoMono-BoldItalic.ttf"),
-    ExtraLight: require("./src/assets/fonts/RobotoMono-ExtraLight.ttf"),
-    "ExtraLight-Italic": require("./src/assets/fonts/RobotoMono-ExtraLightItalic.ttf"),
-    Italic: require("./src/assets/fonts/RobotoMono-Italic.ttf"),
-    Light: require("./src/assets/fonts/RobotoMono-Light.ttf"),
-    "Light-Italic": require("./src/assets/fonts/RobotoMono-LightItalic.ttf"),
-    Medium: require("./src/assets/fonts/RobotoMono-Medium.ttf"),
-    "Medium-Italic": require("./src/assets/fonts/RobotoMono-MediumItalic.ttf"),
-    Regular: require("./src/assets/fonts/RobotoMono-Regular.ttf"),
-    SemiBold: require("./src/assets/fonts/RobotoMono-SemiBold.ttf"),
-    SemiBoldItalic: require("./src/assets/fonts/RobotoMono-SemiBoldItalic.ttf"),
-    Thin: require("./src/assets/fonts/RobotoMono-Thin.ttf"),
-    ThinItalic: require("./src/assets/fonts/RobotoMono-ThinItalic.ttf"),
+    // RobotoMono
+    "RobotoMono-Bold": require("./src/assets/fonts/RobotoMono-Bold.ttf"),
+    "RobotoMono-Bold-Italic": require("./src/assets/fonts/RobotoMono-BoldItalic.ttf"),
+    "RobotoMono-ExtraLight": require("./src/assets/fonts/RobotoMono-ExtraLight.ttf"),
+    "RobotoMono-ExtraLight-Italic": require("./src/assets/fonts/RobotoMono-ExtraLightItalic.ttf"),
+    "RobotoMono-Italic": require("./src/assets/fonts/RobotoMono-Italic.ttf"),
+    "RobotoMono-Light": require("./src/assets/fonts/RobotoMono-Light.ttf"),
+    "RobotoMono-Light-Italic": require("./src/assets/fonts/RobotoMono-LightItalic.ttf"),
+    "RobotoMono-Medium": require("./src/assets/fonts/RobotoMono-Medium.ttf"),
+    "RobotoMono-Medium-Italic": require("./src/assets/fonts/RobotoMono-MediumItalic.ttf"),
+    "RobotoMono-Regular": require("./src/assets/fonts/RobotoMono-Regular.ttf"),
+    "RobotoMono-SemiBold": require("./src/assets/fonts/RobotoMono-SemiBold.ttf"),
+    "RobotoMono-SemiBold-Italic": require("./src/assets/fonts/RobotoMono-SemiBoldItalic.ttf"),
+    "RobotoMono-Thin": require("./src/assets/fonts/RobotoMono-Thin.ttf"),
+    "RobotoMono-Thin-Italic": require("./src/assets/fonts/RobotoMono-ThinItalic.ttf"),
+    // OpenSans
+    "OpenSans-Bold": require("./src/assets/fonts/OpenSans-Bold.ttf"),
+    "OpenSans-Bold-Italic": require("./src/assets/fonts/OpenSans-BoldItalic.ttf"),
+    "OpenSans-ExtraBold": require("./src/assets/fonts/OpenSans-ExtraBold.ttf"),
+    "OpenSans-ExtraBold-Italic": require("./src/assets/fonts/OpenSans-ExtraBoldItalic.ttf"),
+    "OpenSans-Italic": require("./src/assets/fonts/OpenSans-Italic.ttf"),
+    "OpenSans-Light": require("./src/assets/fonts/OpenSans-Light.ttf"),
+    "OpenSans-Light-Italic": require("./src/assets/fonts/OpenSans-LightItalic.ttf"),
+    "OpenSans-Medium": require("./src/assets/fonts/OpenSans-Medium.ttf"),
+    "OpenSans-Medium-Italic": require("./src/assets/fonts/OpenSans-MediumItalic.ttf"),
+    "OpenSans-Regular": require("./src/assets/fonts/OpenSans-Regular.ttf"),
+    "OpenSans-SemiBold": require("./src/assets/fonts/OpenSans-SemiBold.ttf"),
+    "OpenSans-SemiBold-Italic": require("./src/assets/fonts/OpenSans-SemiBoldItalic.ttf"),
   });
 
   // const onLayoutRootView = useCallback(async () => {
@@ -81,7 +95,7 @@ const App = () => {
                   headerShadowVisible: false,
                   headerTitle: "",
                 }}
-                component={DrawerNavigation}
+                component={Drawer}
               />
               <Stack.Screen
                 name="register"
