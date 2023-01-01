@@ -7,15 +7,30 @@ import {
   Image,
   Text,
 } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { Header, CategoryCard } from "../molecules";
 import NoData from "../../../helpers/NoData";
 import MenuData from "../../../data/MenuData";
 import { Colors, commonStyle } from "../../styles";
 import { CustomText } from "../atoms";
 import { AntDesign } from "@expo/vector-icons";
+import sanityClient, { urlFor } from "../../api/sanity";
+import { useState } from "react";
 
 const ShopByCategory = ({ deals, navigation, handleFilterChange }) => {
+  const [categories, setCategories] = useState([]);
+  useEffect(() => {
+    console.log("useeffect");
+    sanityClient
+      .fetch(`*[_type == 'shopCategory']`)
+      .then((data) => {
+        console.log(data);
+        setCategories(data);
+      })
+      .catch((err) => {
+        console.log(err, "err");
+      });
+  }, []);
   return (
     <ScrollView
       horizontal={true}
@@ -24,14 +39,15 @@ const ShopByCategory = ({ deals, navigation, handleFilterChange }) => {
     >
       {/* <Header title="Shop by category" /> */}
       <View style={styles.root}>
-        {MenuData.map(({ title, subTitle, background, icon }, index) => (
+        {categories.map(({ _id, color, icon, name }) => (
           <TouchableOpacity
-            onPress={() => handleFilterChange(title)}
+            key={_id}
+            onPress={() => handleFilterChange(name)}
             style={[
               styles.categoryBox,
               {
-                borderColor: background,
-                shadowColor: background,
+                borderColor: color,
+                shadowColor: color,
               },
             ]}
           >
@@ -43,21 +59,23 @@ const ShopByCategory = ({ deals, navigation, handleFilterChange }) => {
                 borderRadius: 20,
               }}
             >
-              <AntDesign
+              <Image
+                source={{
+                  uri: urlFor(icon).url(),
+                }}
                 style={{
+                  width: 22,
+                  height: 22,
                   backgroundColor: "rgba(255,255,255,0.2)",
                   padding: 5,
                   borderRadius: 20,
                 }}
-                name="home"
-                size={15}
-                color={background}
               />
             </View>
             <CustomText
               style={{ fontWeight: "700", fontSize: 12 }}
               color={Colors.primary.light}
-              value={title}
+              value={name}
             />
           </TouchableOpacity>
         ))}

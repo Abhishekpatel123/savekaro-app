@@ -13,6 +13,8 @@ import ForgotPassword from "./Screens/ForgotPassword/ForgotPassword";
 import axios from "axios";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
+import { Fonts } from "./src/styles";
+// import {} from
 
 const Stack = createNativeStackNavigator();
 
@@ -21,47 +23,11 @@ SplashScreen.preventAutoHideAsync();
 const App = () => {
   const [internet, setInternet] = useState(null);
 
+  const fetchInternet = async () =>
+    await NetInfo.fetch().then((state) => setInternet(state.isConnected));
+
   // FONT
-  const [fontsLoaded] = useFonts({
-    // RobotoMono
-    "RobotoMono-Bold": require("./src/assets/fonts/RobotoMono-Bold.ttf"),
-    "RobotoMono-Bold-Italic": require("./src/assets/fonts/RobotoMono-BoldItalic.ttf"),
-    "RobotoMono-ExtraLight": require("./src/assets/fonts/RobotoMono-ExtraLight.ttf"),
-    "RobotoMono-ExtraLight-Italic": require("./src/assets/fonts/RobotoMono-ExtraLightItalic.ttf"),
-    "RobotoMono-Italic": require("./src/assets/fonts/RobotoMono-Italic.ttf"),
-    "RobotoMono-Light": require("./src/assets/fonts/RobotoMono-Light.ttf"),
-    "RobotoMono-Light-Italic": require("./src/assets/fonts/RobotoMono-LightItalic.ttf"),
-    "RobotoMono-Medium": require("./src/assets/fonts/RobotoMono-Medium.ttf"),
-    "RobotoMono-Medium-Italic": require("./src/assets/fonts/RobotoMono-MediumItalic.ttf"),
-    "RobotoMono-Regular": require("./src/assets/fonts/RobotoMono-Regular.ttf"),
-    "RobotoMono-SemiBold": require("./src/assets/fonts/RobotoMono-SemiBold.ttf"),
-    "RobotoMono-SemiBold-Italic": require("./src/assets/fonts/RobotoMono-SemiBoldItalic.ttf"),
-    "RobotoMono-Thin": require("./src/assets/fonts/RobotoMono-Thin.ttf"),
-    "RobotoMono-Thin-Italic": require("./src/assets/fonts/RobotoMono-ThinItalic.ttf"),
-    // OpenSans
-    "OpenSans-Bold": require("./src/assets/fonts/OpenSans-Bold.ttf"),
-    "OpenSans-Bold-Italic": require("./src/assets/fonts/OpenSans-BoldItalic.ttf"),
-    "OpenSans-ExtraBold": require("./src/assets/fonts/OpenSans-ExtraBold.ttf"),
-    "OpenSans-ExtraBold-Italic": require("./src/assets/fonts/OpenSans-ExtraBoldItalic.ttf"),
-    "OpenSans-Italic": require("./src/assets/fonts/OpenSans-Italic.ttf"),
-    "OpenSans-Light": require("./src/assets/fonts/OpenSans-Light.ttf"),
-    "OpenSans-Light-Italic": require("./src/assets/fonts/OpenSans-LightItalic.ttf"),
-    "OpenSans-Medium": require("./src/assets/fonts/OpenSans-Medium.ttf"),
-    "OpenSans-Medium-Italic": require("./src/assets/fonts/OpenSans-MediumItalic.ttf"),
-    "OpenSans-Regular": require("./src/assets/fonts/OpenSans-Regular.ttf"),
-    "OpenSans-SemiBold": require("./src/assets/fonts/OpenSans-SemiBold.ttf"),
-    "OpenSans-SemiBold-Italic": require("./src/assets/fonts/OpenSans-SemiBoldItalic.ttf"),
-  });
-
-  // const onLayoutRootView = useCallback(async () => {
-  //   if (fontsLoaded) await SplashScreen.hideAsync();
-  // }, [fontsLoaded]);
-
-  const fetchInternet = async () => {
-    await NetInfo.fetch().then((state) => {
-      setInternet(state.isConnected);
-    });
-  };
+  const [fontsLoaded] = useFonts(Fonts.fontStore);
 
   useEffect(() => {
     async function prepare() {
@@ -78,7 +44,7 @@ const App = () => {
     <>
       {internet ? (
         <NavigationContainer>
-          <Provider store={Store}>
+          <Provider store={{ ...Store }}>
             <Stack.Navigator initialRouteName="login">
               <Stack.Screen
                 name="login"
