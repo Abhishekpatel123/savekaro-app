@@ -13,7 +13,7 @@ const OfferCard = ({ onPress, item }) => {
     <View style={styles.root}>
       <ImageBackground
         source={{ uri: item?.image }}
-        borderRadius={25}
+        borderRadius={18}
         resizeMode="cover"
         style={[styles.header, styles.shadow]}
       >

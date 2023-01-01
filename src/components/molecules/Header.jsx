@@ -2,6 +2,7 @@ import { StyleSheet, TouchableOpacity, Image, View } from "react-native";
 import React from "react";
 import { CustomText } from "../atoms";
 import { Colors, Fonts } from "../../styles";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const Header = ({ title }) => {
   return (
@@ -12,13 +13,9 @@ const Header = ({ title }) => {
         type="title"
         font={Fonts.RobotoMono.Regular}
       />
-      <TouchableOpacity>
-        <CustomText
-          color={Colors.primary.light}
-          value="Sell all"
-          font={Fonts.RobotoMono.Thin}
-        />
-      </TouchableOpacity>
+      {/* <TouchableOpacity>
+        <CustomText color={Colors.primary.light} value="Sell all" />
+      </TouchableOpacity> */}
     </View>
   );
 };

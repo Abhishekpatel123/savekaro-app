@@ -54,15 +54,6 @@ const ShopByCategory = ({ deals, navigation, handleFilterChange }) => {
                 color={background}
               />
             </View>
-            {/* <Image
-              source={icon}
-              style={{
-                width: 22,
-                height: 22,
-                backgroundColor: background,
-                marginRight: 8,
-              }}
-            /> */}
             <CustomText
               style={{ fontWeight: "700", fontSize: 12 }}
               color={Colors.primary.light}

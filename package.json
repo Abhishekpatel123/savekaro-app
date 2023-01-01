@@ -16,6 +16,7 @@
     "@react-navigation/drawer": "^6.1.8",
     "@react-navigation/native": "^6.0.6",
     "@react-navigation/native-stack": "^6.2.5",
+    "@sanity/client": "^3.4.1",
     "add": "^2.0.6",
     "axios": "^0.24.0",
     "country-state-city": "^3.0.1",

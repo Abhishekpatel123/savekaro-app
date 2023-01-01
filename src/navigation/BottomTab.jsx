@@ -1,4 +1,10 @@
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Dimensions,
+} from "react-native";
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Home } from "../screens";
@@ -10,8 +16,11 @@ import {
   Ionicons,
 } from "@expo/vector-icons";
 import { CustomText } from "../components/atoms";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const Tab = createBottomTabNavigator();
+
+const { width } = Dimensions.get("screen");
 
 const IconsArrayFun = (index, isFocused) => {
   const array = [
@@ -45,13 +54,10 @@ const MyTabBar = ({ state, descriptors, navigation }) => {
       style={{
         flexDirection: "row",
         backgroundColor: "rgba(41, 45, 50,0.96)",
-        // backgroundColor: "rgba(52, 52, 52, 0.8)",
-        // backgroundColor: 'transparent',
         position: "absolute",
         left: 0,
         bottom: 0,
         right: 0,
-        // opacity: 0.4,
         borderTopWidth: 1,
         borderColor: "#333",
         paddingVertical: 5,
@@ -121,7 +127,34 @@ const BottomTab = () => {
       tabBar={(props) => <MyTabBar {...props} />}
       screenOptions={{
         headerShown: true,
-        headerTitle: "Take your money back",
+        headerBackground: () => (
+          <SafeAreaView
+            style={{
+              backgroundColor: Colors.primary.main,
+              height: "100%",
+              borderBottomWidth: 0.4,
+              borderColor: "rgba(255, 255, 255,0.1)",
+            }}
+          ></SafeAreaView>
+        ),
+
+        headerTitle: ({ children }) => (
+          <View
+            style={{
+              alignItems: "center",
+              flexDirection: "row",
+              justifyContent: "center",
+              flex: 1,
+              width: width - 15 * 2,
+            }}
+          >
+            <CustomText
+              type="title"
+              font={Fonts.OpenSans.Regular}
+              value={`${children}`}
+            />
+          </View>
+        ),
       }}
     >
       <Tab.Screen

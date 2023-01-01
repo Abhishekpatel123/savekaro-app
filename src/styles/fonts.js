@@ -30,8 +30,8 @@ const OpenSans = {
   Regular: "OpenSans-Regular",
   SemiBold: "OpenSans-SemiBold",
   SemiBoldItalic: "OpenSans-SemiBoldItalic",
-  Thin: "OpenSans-Thin",
-  ThinItalic: "OpenSans-ThinItalic",
+  // Thin: "OpenSans-Thin",
+  // ThinItalic: "OpenSans-ThinItalic",
 };
 
 export default { RobotoMono, OpenSans };

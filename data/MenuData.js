@@ -20,7 +20,7 @@ const MenuData = [
     title: "Restaurant",
     subTitle: "Deals",
     icon: resturant,
-    background: "blue",
+    background: "pink",
   },
   // {
   //   title: "Buffet",

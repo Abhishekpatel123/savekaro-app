@@ -1,11 +1,7 @@
 // const baseURL = "https://coupon-solicits-1.herokuapp.com";
 // const baseURL = "https://coupon-backend-12.herokuapp.com";
-// const baseURL = "http://192.168.1.4:5000";
-// export const baseURL = "https://coupon-api.herokuapp.com";
-// MY PHONE NETWORK
-// export const baseURL = "http://192.168.137.180:5000";
-// ABHILASHA PHONE NETWORK 
-export const baseURL = "http://192.168.43.180:5000";
+// USE IP ADDRESS FORM YOUR NETWORK TAB IN LAPTOP
+export const baseURL = "http://192.168.54.180:5000";
 
 
 // const baseURL = "http://localhost:5000";

@@ -132,7 +132,7 @@ const Home = ({ navigation }) => {
     <ScrollView style={styles.root}>
       {location.region ? (
         <CustomText
-          style={{ textAlign: "center", marginTop: 10 }}
+          style={{ textAlign: "center", paddingTop: 18 }}
           value={locationText}
         />
       ) : (
