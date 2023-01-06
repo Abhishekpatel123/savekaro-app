@@ -1,9 +1,14 @@
 import { StyleSheet, Text, View, ScrollView } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { Header, OfferCard } from "../molecules";
 import NoData from "../../../helpers/NoData";
+import sanityClient from "../../api/sanity";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 
-const TopDeals = ({ deals = [], navigation }) => {
+const TopDeals = ({ navigation }) => {
+  const offers = useSelector((state) => state.offer.offers);
+
   return (
     <View style={styles.root}>
       <Header title="Top Deals" />
@@ -12,12 +17,15 @@ const TopDeals = ({ deals = [], navigation }) => {
         showsHorizontalScrollIndicator={false}
         style={{ marginTop: 10 }}
       >
-        {deals.length === 0 && <NoData />}
-        {deals.map((res, index) => (
+        {offers?.length === 0 && <NoData />}
+        {offers?.map((offer, index) => (
           <OfferCard
             key={index}
-            onPress={() => navigation.navigate("advertinfo", res)}
-            item={res}
+            onPress={() => navigation.navigate("offer", offer)}
+            shopName={offer.shopkeeper.shopName}
+            bannerImageUrl={offer.bannerImageUrl}
+            discount={offer.discount}
+            logo={offer.logo}
           />
         ))}
       </ScrollView>

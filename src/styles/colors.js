@@ -22,7 +22,7 @@ const colors = {
     light: "#DBDEDF",
   },
   secondary: {
-    main: "",
+    main: "lightblue",
     dark: "",
     light: "",
   },

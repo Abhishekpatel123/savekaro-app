@@ -1,3 +1,6 @@
+import { AntDesign } from "@expo/vector-icons";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 import {
   StyleSheet,
   View,
@@ -13,24 +16,10 @@ import NoData from "../../../helpers/NoData";
 import MenuData from "../../../data/MenuData";
 import { Colors, commonStyle } from "../../styles";
 import { CustomText } from "../atoms";
-import { AntDesign } from "@expo/vector-icons";
-import sanityClient, { urlFor } from "../../api/sanity";
-import { useState } from "react";
 
-const ShopByCategory = ({ deals, navigation, handleFilterChange }) => {
-  const [categories, setCategories] = useState([]);
-  useEffect(() => {
-    console.log("useeffect");
-    sanityClient
-      .fetch(`*[_type == 'shopCategory']`)
-      .then((data) => {
-        console.log(data);
-        setCategories(data);
-      })
-      .catch((err) => {
-        console.log(err, "err");
-      });
-  }, []);
+const ShopByCategory = ({ handleFilterChange }) => {
+  const categories = useSelector((state) => state.offer.categories);
+ 
   return (
     <ScrollView
       horizontal={true}
@@ -39,7 +28,7 @@ const ShopByCategory = ({ deals, navigation, handleFilterChange }) => {
     >
       {/* <Header title="Shop by category" /> */}
       <View style={styles.root}>
-        {categories.map(({ _id, color, icon, name }) => (
+        {categories?.map(({ _id, color, iconUrl, name }) => (
           <TouchableOpacity
             key={_id}
             onPress={() => handleFilterChange(name)}
@@ -61,7 +50,8 @@ const ShopByCategory = ({ deals, navigation, handleFilterChange }) => {
             >
               <Image
                 source={{
-                  uri: urlFor(icon).url(),
+                  // uri: urlFor(icon).url(),
+                  uri: iconUrl,
                 }}
                 style={{
                   width: 22,

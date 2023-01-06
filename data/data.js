@@ -58,7 +58,7 @@ const data = [
       <MaterialIcons
         name="support-agent"
         size={24}
-        color={Colors.primary.light}
+      color={Colors.primary.light}
       />
     ),
   },

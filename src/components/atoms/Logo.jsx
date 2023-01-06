@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
   logo: {
     width: 48,
     height: 48,
-    backgroundColor: "lightblue",
+    backgroundColor: Colors.secondary.main,
     justifyContent: "center",
     alignItems: "center",
   },

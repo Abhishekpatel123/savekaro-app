@@ -12,7 +12,7 @@ import CustomInput from "../../helpers/CustomInput";
 import { Formik } from "formik";
 import * as yup from "yup";
 import CustomButtom from "../../helpers/CustomButtom";
-import config from "../../config/config";
+import config from "../../src/config";
 import Spinner from "react-native-loading-spinner-overlay";
 import axios from "axios";
 import { Colors } from "../../constants/colors";

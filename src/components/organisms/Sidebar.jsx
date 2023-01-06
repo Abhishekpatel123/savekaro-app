@@ -28,7 +28,7 @@ const Sidebar = (props) => {
       {
         text: "OK",
         onPress: async () => {
-          await AsyncStorage.removeItem("token").then(() => {
+          await AsyncStorage.removeItem("accessToken").then(() => {
             navigation.replace("login");
           });
         },

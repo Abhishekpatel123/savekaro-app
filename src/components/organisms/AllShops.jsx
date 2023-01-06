@@ -16,7 +16,7 @@ const AllShops = ({ deals, navigation }) => {
         {deals.map((res, index) => (
           <CategoryCard
             key={index}
-            onPress={() => navigation.navigate("advertinfo", res)}
+            onPress={() => navigation.navigate("offer", res)}
             item={res}
           />
         ))}

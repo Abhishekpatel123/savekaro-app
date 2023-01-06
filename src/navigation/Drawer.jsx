@@ -2,13 +2,13 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import React from "react";
 import { useSelector } from "react-redux";
 import { Sidebar } from "../components/organisms";
-import AdvertInfo from "../../Screens/AdvertInfo/AdvertInfo";
 import ChangePassword from "../../Screens/ChangePassword/ChangePassword";
 import Profile from "../../Screens/Profile/Profile";
 import ReferAFriend from "../../Screens/ReferAFriend/ReferAFriend";
 import Support from "../../Screens/Support/Support";
 import BottomTab from "./BottomTab";
 import Help from "../../Screens/Help/Help";
+import { Offer } from "../screens";
 
 const Drawer = createDrawerNavigator();
 
@@ -45,11 +45,6 @@ const DrawerNavigation = () => {
         component={ReferAFriend}
         name="refer"
         options={{ headerShadowVisible: false, headerTitle: "Refer A Friend" }}
-      />
-      <Drawer.Screen
-        component={AdvertInfo}
-        name="advertinfo"
-        options={{ headerShadowVisible: false, headerTitle: "" }}
       />
     </Drawer.Navigator>
   );

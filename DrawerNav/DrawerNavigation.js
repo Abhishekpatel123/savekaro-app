@@ -3,10 +3,10 @@ import React from "react";
 import { Text, View } from "react-native";
 import { useSelector } from "react-redux";
 import Sidebar from "../components/Sidebar";
-import AdvertInfo from "../Screens/AdvertInfo/AdvertInfo";
+// import AdvertInfo from "../Screens/AdvertInfo/AdvertInfo";
 import ChangePassword from "../Screens/ChangePassword/ChangePassword";
 import Help from "../Screens/Help/Help";
-import { Home } from "../src/screens";
+import { Home, Offer } from "../src/screens";
 import Profile from "../Screens/Profile/Profile";
 import ReferAFriend from "../Screens/ReferAFriend/ReferAFriend";
 import Support from "../Screens/Support/Support";
@@ -71,8 +71,8 @@ const DrawerNavigation = () => {
         options={{ headerShadowVisible: false, headerTitle: "Refer A Friend" }}
       />
       <Drawer.Screen
-        component={AdvertInfo}
-        name="advertinfo"
+        component={Offer}
+        name="offer"
         options={{ headerShadowVisible: false, headerTitle: "" }}
       />
     </Drawer.Navigator>

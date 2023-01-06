@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Home } from "../screens";
+import { Bookings, Home } from "../screens";
 import { Colors, Fonts } from "../styles";
 import {
   AntDesign,
@@ -166,7 +166,7 @@ const BottomTab = () => {
           },
         }}
       />
-      <Tab.Screen name="Payments" component={Home} />
+      <Tab.Screen name="Bookings" component={Bookings} />
       <Tab.Screen name="Cashback" component={Home} />
       <Tab.Screen
         name="Menu"

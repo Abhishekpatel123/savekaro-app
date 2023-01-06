@@ -17,7 +17,7 @@ import { useSelector } from "react-redux";
 import Spinner from "react-native-loading-spinner-overlay";
 import TopHotels from "../../components/TopHotels";
 import BestOffers from "../../components/BestOffers";
-import config from "../../config/config";
+import config from "../config";
 import NoData from "../../helpers/NoData";
 import { getDistance, getPreciseDistance } from "geolib";
 import RowCategory, {
@@ -27,6 +27,18 @@ import { SearchInput, CustomText } from "../components/atoms";
 import { Header, LocationAlert, OfferCard } from "../components/molecules";
 import { Colors } from "../styles";
 import { ALlShops, ShopByCategory, TopDeals } from "../components/organisms";
+import {
+  setLiveAddress,
+  setUser,
+  updateUserApi,
+} from "../store/features/authSlice";
+import axiosInstance from "../api/axiosInstance";
+import {
+  setOffers,
+  setCategories,
+  fetchOfferApi,
+  fetchShopCategoriesApi,
+} from "../store/features/offerSlice";
 
 const Home = ({ navigation }) => {
   const [hotel, setHotel] = useState([]);
@@ -37,13 +49,11 @@ const Home = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const [isFilter, setfilter] = useState(false);
   const [liveCords, setLiveCords] = useState(null);
-  const location = useSelector((state) => state.location);
-  const token = useSelector((state) => state.token);
+  const user = useSelector((state) => state.auth.user);
+  const accessToken = useSelector((state) => state.auth.accessToken);
   const dispatch = useDispatch();
-  console.log(token, "token");
 
   const getLocation = async () => {
-    // setLoading(true);
     try {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") {
@@ -53,50 +63,31 @@ const Home = ({ navigation }) => {
       let location = await Location.getCurrentPositionAsync({ accuracy: 0.1 });
       if (location) {
         const { latitude, longitude } = location.coords;
-        console.log(latitude, longitude);
         setLiveCords({ latitude, longitude });
         const response = await Location.reverseGeocodeAsync({
           latitude,
           longitude,
         });
 
-        const res = await axios.get(
-          config.advert_suggestion_url + `/${latitude}/${longitude}`,
-          options
-        );
-        console.log(res.data, "res");
-        setFilterHotel(res.data.shortedAdverts);
-
-        dispatch({
-          type: "SET_LOCATION",
-          location: response[0],
-        });
-        // await axios
-        //   .get(
-        //     config.locationApi_url +
-        //       `${location.coords.latitude},${location.coords.longitude}`
-        //   )
-        //   .then((res) => {
-        //     console.log("location ", res.data.data);
-        //     dispatch({
-        //       type: "SET_LOCATION",
-        //       location: res.data.data[0],
-        //     });
-        //   })
-        //   .catch((err) => {
-        //     console.log(err);
-        //   })
-        //   .finally(() => setLoading(false));
+        const liveAddress = {
+          city: response[0].city,
+          coordinates: {
+            lat: latitude,
+            lng: longitude,
+          },
+        };
+        // - Update live address to the User DB
+        dispatch(updateUserApi({ liveAddress }));
       }
     } catch (err) {
       alert("errorr ");
     }
-
-    // setLoading(false);
   };
 
   useEffect(() => {
     getLocation();
+    dispatch(fetchOfferApi());
+    dispatch(fetchShopCategoriesApi());
   }, []);
 
   const handleFilterChange = (selectedValue) => {
@@ -105,49 +96,36 @@ const Home = ({ navigation }) => {
     setFilterAdvert(advert.filter((item) => item?.category === selectedValue));
   };
 
-  const options = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
-
-  useEffect(() => {
-    axios.get(config.advert_url, options).then((res) => {
-      setAdvert(res.data);
-      setFilterAdvert(res.data);
-    });
-  }, []);
-
   if (loading) return <Spinner visible={loading} textContent="Loading..." />;
 
   const processData = (data) => (data ? data + "," : "");
 
-  const locationText = `Location - ${processData(
-    location?.street
-  )} ${processData(location?.city)}${processData(location.state)} ${processData(
-    location.postalCode
-  )} ${processData(location?.country)}`;
+  // const locationText = `Location - ${processData(
+  //   location?.street
+  // )} ${processData(location?.city)}${processData(location.state)} ${processData(
+  //   location.postalCode
+  // )} ${processData(location?.country)}`;
 
   return (
     <ScrollView style={styles.root}>
-      {location.region ? (
+      {user?.liveAddress?.city ? (
         <CustomText
           style={{ textAlign: "center", paddingTop: 18 }}
-          value={locationText}
+          value={"City - " + user.liveAddress.city}
         />
       ) : (
         <LocationAlert onPress={getLocation} />
       )}
 
       {/* SHOP BY CATEGORY */}
-      <ShopByCategory deals={filterAdvert} />
+      <ShopByCategory handleFilterChange={handleFilterChange} />
       {/* <RowCategory handleFilterChange={handleFilterChange} /> */}
 
       {/* TOP DEALS */}
-      <TopDeals deals={filterAdvert} navigation={navigation} />
+      <TopDeals navigation={navigation} />
 
       {/* ALL SHOPS */}
-      <ALlShops deals={filterAdvert} />
+      {/* <ALlShops deals={filterAdvert} /> */}
 
       {/* Top Hotels */}
       {/* <View style={{ margin: 15 }}>
@@ -162,7 +140,7 @@ const Home = ({ navigation }) => {
           <View style={{ flexDirection: "row" }}>
             {filterHotel?.map((res, index) => (
               <TopHotels
-                onPress={() => navigation.navigate("advertinfo", res)}
+                onPress={() => navigation.navigate("offer", res)}
                 uri={res.bannerImage}
                 key={index}
               />

@@ -10,7 +10,7 @@ import Spinner from "react-native-loading-spinner-overlay";
 import { useSelector } from "react-redux";
 import Autocomplete from "react-native-autocomplete-input";
 
-import config from "../../config/config";
+import config from "../../src/config";
 import person from "../../icons/person.png";
 import { cities as citiesData } from "../../data/cities";
 import { Colors } from "../../constants/colors";
@@ -26,7 +26,7 @@ const Profile = () => {
   console.log(state);
   const [city, setCity] = useState(state?.user?.city || state?.city);
   const [loading, setLoading] = useState(false);
-  const token = useSelector((state) => state.token);
+  const accessToken = useSelector((state) => state.auth.accessToken);
 
   useEffect(() => {
     return () => {
@@ -47,7 +47,7 @@ const Profile = () => {
         },
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${accessToken}`,
           },
         }
       )

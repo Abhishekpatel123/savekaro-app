@@ -4,7 +4,7 @@ import { View, Text, Pressable } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import Spinner from "react-native-loading-spinner-overlay";
 import { useSelector } from "react-redux";
-import config from "../../config/config";
+import config from "../../src/config";
 import { Colors } from "../../constants/colors";
 import CustomButtom from "../../helpers/CustomButtom";
 
@@ -12,8 +12,7 @@ const ChangePassword = () => {
   const [password, setPassword] = useState("");
   const [confPassword, setConfPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const state = useSelector((state) => state.token);
-  const user = useSelector((state) => state.user);
+  const accessToken = useSelector((state) => state.auth.accessToken);
   const change = () => {
     if (password === confPassword) {
       setLoading(true);
@@ -25,7 +24,7 @@ const ChangePassword = () => {
           },
           {
             headers: {
-              Authorization: `Bearer ${state || user.token}`,
+              Authorization: `Bearer ${accessToken}`,
             },
           }
         )

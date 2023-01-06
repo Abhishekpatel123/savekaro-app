@@ -8,7 +8,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Sidebar = ({ navigation }) => {
   const signout = async () => {
-    await AsyncStorage.removeItem("token").then(() => {
+    await AsyncStorage.removeItem("accessToken").then(() => {
       navigation.replace("login");
     });
   };

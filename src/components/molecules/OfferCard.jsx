@@ -1,18 +1,18 @@
 import React from "react";
 import { View, Text, Image, StyleSheet, ImageBackground } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { Colors } from "../../../constants/colors";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 // import CustomButtom from "..//helpers/CustomButtom";
 import { getDate } from "../../../services/getDate";
-import { Fonts } from "../../styles";
+import { urlFor } from "../../api/sanity";
+import { Colors, Fonts } from "../../styles";
 import { CustomText, Button } from "../atoms";
 
-const OfferCard = ({ onPress, item }) => {
-  // const { image, description, discount, startDate, endDate } = item;
+const OfferCard = ({ onPress, discount, bannerImageUrl, logo, shopName }) => {
   return (
     <View style={styles.root}>
       <ImageBackground
-        source={{ uri: item?.image }}
+        // source={{ uri: urlFor(bannerImage).url() }}
+        source={{ uri: bannerImageUrl }}
         borderRadius={18}
         resizeMode="cover"
         style={[styles.header, styles.shadow]}
@@ -20,11 +20,7 @@ const OfferCard = ({ onPress, item }) => {
         <View style={styles.content}>
           <CustomText value="Up to" color="black" />
           <View>
-            <CustomText
-              value={item?.discount?.slice(0, 2) + "%"}
-              color="black"
-              type="title"
-            />
+            <CustomText value={discount + "%"} color="black" type="title" />
             <CustomText color="black" value="Cashback" />
           </View>
         </View>
@@ -32,13 +28,31 @@ const OfferCard = ({ onPress, item }) => {
       {/* - FOOTER */}
       <View style={styles.footer}>
         <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <Image
-            source={{ uri: item?.image }}
-            style={{ width: 30, height: 30, marginRight: 6 }}
-            borderRadius={15}
-            // resizeMode="contain"
+          {logo ? (
+            <Image
+              source={{ uri: urlFor(logo).url() }}
+              style={{ width: 30, height: 30, marginRight: 6 }}
+              borderRadius={15}
+              // resizeMode="contain"
+            />
+          ) : (
+            <MaterialCommunityIcons
+              name="shopping"
+              color={Colors.secondary.main}
+              size={20}
+              style={{
+                marginRight: 8,
+                backgroundColor: Colors.primary.light,
+                padding: 4,
+                borderRadius: 50,
+                opacity: 0.5,
+              }}
+            />
+          )}
+          <CustomText
+            value={shopName}
+            font={Fonts.RobotoMono.Bold}
           />
-          <CustomText value="Amazon.com" font={Fonts.RobotoMono.Thin} />
         </View>
         <Button value="Shop now" onPress={onPress} />
       </View>
