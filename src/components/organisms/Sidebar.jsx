@@ -15,9 +15,12 @@ import { Colors, Fonts } from "../../styles";
 import { CustomText, Logo } from "../atoms";
 import { drawerData } from "../../assets/database";
 import { DrawerContentScrollView } from "@react-navigation/drawer";
+import { useDispatch } from "react-redux";
+import { logoutApi } from "../../store/features/authSlice";
 
 const Sidebar = (props) => {
   const { navigation } = props;
+  const dispatch = useDispatch();
   const signout = () => {
     Alert.alert("Logout", "Want to logout ", [
       {
@@ -28,9 +31,7 @@ const Sidebar = (props) => {
       {
         text: "OK",
         onPress: async () => {
-          await AsyncStorage.removeItem("accessToken").then(() => {
-            navigation.replace("login");
-          });
+          dispatch(logoutApi({hello : "1"}));
         },
       },
     ]);

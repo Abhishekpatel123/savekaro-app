@@ -16,7 +16,23 @@ export const loginApi = createAsyncThunk(
       return response.data;
     } catch (err) {
       console.log(err, "err in login authSlice");
-      return rejectWithValue(err);
+      return rejectWithValue(err.response);
+    }
+  }
+);
+
+export const logoutApi = createAsyncThunk(
+  "/user/logout",
+  async (data, { rejectWithValue }) => {
+    try {
+      const accessToken = await AsyncStorage.getItem("accessToken");
+      const response = await axiosInstance.delete("/user/logout", {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      });
+      console.log(data, response, "data");
+      return response.data;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
     }
   }
 );
@@ -35,7 +51,7 @@ export const updateUserApi = createAsyncThunk(
       return response.data;
     } catch (err) {
       console.log(err.response.status, "err in authSlice");
-      return rejectWithValue(err);
+      return rejectWithValue(err.response.data);
     }
   }
 );
@@ -63,12 +79,28 @@ const authSlice = createSlice({
       state.accessToken = payload.accessToken;
       AsyncStorage.setItem("accessToken", payload.accessToken);
     });
+    builder.addCase(loginApi.rejected, (state, action) => {
+      console.log(action, "action");
+      // state.user = payload.user;
+      // state.accessToken = payload.accessToken;
+      // AsyncStorage.setItem("accessToken", payload.accessToken);
+    });
     builder.addCase(updateUserApi.fulfilled, (state, { payload }) => {
       console.log(payload, "user while live address updating");
       state.user = payload.user;
     });
     builder.addCase(updateUserApi.rejected, (state, { payload }) => {
-      console.log("rejexted -------------");
+      state.accessToken = null;
+      state.user = null;
+      AsyncStorage.removeItem("accessToken");
+    });
+    builder.addCase(logoutApi.fulfilled, (state, data) => {
+      console.log(state, data, 'state data');
+      state.accessToken = null;
+      state.user = null;
+      AsyncStorage.removeItem("accessToken");
+    });
+    builder.addCase(logoutApi.rejected, (state, data) => {
       state.accessToken = null;
       state.user = null;
       AsyncStorage.removeItem("accessToken");

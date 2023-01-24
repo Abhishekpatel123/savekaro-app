@@ -1,7 +1,7 @@
 // const baseURL = "https://coupon-solicits-1.herokuapp.com";
 // const baseURL = "https://coupon-backend-12.herokuapp.com";
 // USE IP ADDRESS FORM YOUR NETWORK TAB IN LAPTOP
-export const BACKEND_URL = "http://192.168.178.180:5000/api/v1";
+export const BACKEND_URL = "http://192.168.43.180:5000/api/v1";
 
 const accessToken = "54f2785ab5306a340f186cf23cd00556";
 const config = {

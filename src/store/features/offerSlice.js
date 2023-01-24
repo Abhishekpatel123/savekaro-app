@@ -22,7 +22,7 @@ export const fetchOfferApi = createAsyncThunk(
       return response.data;
     } catch (err) {
       console.log(err, "erer");
-      return rejectWithValue(err);
+      return rejectWithValue(err.response.data);
     }
   }
 );
@@ -35,7 +35,7 @@ export const fetchShopCategoriesApi = createAsyncThunk(
       return response.data;
     } catch (err) {
       console.log(err, "erer");
-      return rejectWithValue(err);
+      return rejectWithValue(err.response.data);
     }
   }
 );
@@ -51,7 +51,7 @@ export const bookOfferApi = createAsyncThunk(
       return response.data;
     } catch (err) {
       console.log(err, "erer");
-      return rejectWithValue(err);
+      return rejectWithValue(err.response.data);
     }
   }
 );
@@ -70,7 +70,7 @@ export const fetchBookingsApi = createAsyncThunk(
       return response.data;
     } catch (err) {
       console.log(err, "erer");
-      return rejectWithValue(err);
+      return rejectWithValue(err.response.data);
     }
   }
 );
@@ -88,7 +88,7 @@ export const cancelBookingsApi = createAsyncThunk(
       return response.data;
     } catch (err) {
       console.log(err, "erer");
-      return rejectWithValue(err);
+      return rejectWithValue(err.response.data);
     }
   }
 );
@@ -114,6 +114,14 @@ export const offerSlice = createSlice({
     builder.addCase(fetchBookingsApi.fulfilled, (state, { payload }) => {
       // state.alert = { message: payload.message, type: STATUS.success };
       state.bookings = payload.bookings;
+    });
+    builder.addCase(fetchBookingsApi.rejected, (state, { payload }) => {
+      console.log(payload, "error booking");
+      state.alert = {
+        message: "Your are not authorized to",
+        type: STATUS.error,
+      };
+      // state.bookings = payload.bookings;
     });
     builder.addCase(cancelBookingsApi.fulfilled, (state, { payload }) => {
       // state.alert = { message: payload.message, type: STATUS.success };

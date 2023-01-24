@@ -15,14 +15,20 @@ import {
 import { Colors } from "../styles";
 import { OfferCard } from "../components/molecules";
 import { getDate } from "../../services/getDate";
+import { STATUS } from "../constants";
 
 const Bookings = () => {
-  const bookings = useSelector((state) => state.offer.bookings);
+  const { bookings, alert } = useSelector((state) => state.offer);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchBookingsApi());
   }, []);
 
+  useEffect(() => {
+    console.log(alert, "alert");
+    if (alert?.type === STATUS.error) {
+    }
+  }, [alert]);
   const handleCancel = (offerId) => {
     dispatch(cancelBookingsApi({ offerId }));
   };
@@ -31,6 +37,7 @@ const Bookings = () => {
     dispatch(fetchBookingsApi(status));
   };
 
+  console.log(bookings, "bookings");
   return (
     <View
       style={{ backgroundColor: Colors.primary.main }}
@@ -82,7 +89,7 @@ export const Card = ({ offer, status, handleCancelOffer }) => {
       <OfferCard
         bannerImageUrl={offer.bannerImageUrl}
         discount={offer.discount}
-        shopName={offer.shopkeeper.shopName}
+        shopName={offer?.shopkeeper?.shopName}
         logo={offer.logo}
       />
       <View className="flex-row justify-between items-center">
