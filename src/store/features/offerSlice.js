@@ -15,7 +15,10 @@ export const fetchOfferApi = createAsyncThunk(
   "/shopkeeper/offers",
   async (data, { rejectWithValue }) => {
     try {
-      const response = await axiosInstance.get("/offers");
+      const accessToken = await AsyncStorage.getItem("accessToken");
+      const response = await axiosInstance.get("/offers", {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      });
       return response.data;
     } catch (err) {
       console.log(err, "erer");
@@ -58,9 +61,30 @@ export const fetchBookingsApi = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     try {
       const accessToken = await AsyncStorage.getItem("accessToken");
-      const response = await axiosInstance.get("/offers/bookings", {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      });
+      const response = await axiosInstance.get(
+        `/offers/bookings?status=${data}`,
+        {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        }
+      );
+      return response.data;
+    } catch (err) {
+      console.log(err, "erer");
+      return rejectWithValue(err);
+    }
+  }
+);
+
+export const cancelBookingsApi = createAsyncThunk(
+  "/offers/booking/cancel",
+  async (data, { rejectWithValue }) => {
+    try {
+      const accessToken = await AsyncStorage.getItem("accessToken");
+      const response = await axiosInstance.patch(
+        "/offers/bookings/cancel",
+        data,
+        { headers: { Authorization: `Bearer ${accessToken}` } }
+      );
       return response.data;
     } catch (err) {
       console.log(err, "erer");
@@ -88,6 +112,10 @@ export const offerSlice = createSlice({
       state.alert = { message: payload.message, type: STATUS.success };
     });
     builder.addCase(fetchBookingsApi.fulfilled, (state, { payload }) => {
+      // state.alert = { message: payload.message, type: STATUS.success };
+      state.bookings = payload.bookings;
+    });
+    builder.addCase(cancelBookingsApi.fulfilled, (state, { payload }) => {
       // state.alert = { message: payload.message, type: STATUS.success };
       state.bookings = payload.bookings;
     });

@@ -16,7 +16,7 @@ const topLinks = [
     route: "profile",
     icon: (
       <MaterialCommunityIcons
-        name="face-profile"
+        name="face-man-profile"
         size={24}
         color={Colors.primary.light}
       />

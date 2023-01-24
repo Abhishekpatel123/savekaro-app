@@ -89,6 +89,7 @@ const Home = ({ navigation }) => {
     dispatch(fetchOfferApi());
     dispatch(fetchShopCategoriesApi());
   }, []);
+  
 
   const handleFilterChange = (selectedValue) => {
     setfilter(false);

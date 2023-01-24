@@ -49,12 +49,9 @@ const OfferCard = ({ onPress, discount, bannerImageUrl, logo, shopName }) => {
               }}
             />
           )}
-          <CustomText
-            value={shopName}
-            font={Fonts.RobotoMono.Bold}
-          />
+          <CustomText value={shopName} font={Fonts.RobotoMono.Bold} />
         </View>
-        <Button value="Shop now" onPress={onPress} />
+        {onPress && <Button value="Shop now" onPress={onPress} />}
       </View>
     </View>
   );

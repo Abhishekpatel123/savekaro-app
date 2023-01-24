@@ -5,11 +5,11 @@ import NetInfo from "@react-native-community/netinfo";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 
-import Navigation from "./navigation";
-import NoInternet from "../Screens/NoInternet/NoInternet";
-import { Fonts } from "./styles";
-import Store from "../Store/store";
-import { store } from "./store";
+import Navigation from "./src/navigation";
+import NoInternet from "./Screens/NoInternet/NoInternet";
+import { Fonts } from "./src/styles";
+import Store from "./Store/store";
+import { store } from "./src/store";
 
 SplashScreen.preventAutoHideAsync();
 LogBox.ignoreLogs(["Setting a timer for a long period of time"]);

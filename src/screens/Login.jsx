@@ -69,6 +69,7 @@ const Login = ({ navigation }) => {
   // Login handler...
   const handleLogin = async (values) => {
     try {
+      console.log(values,'va')
       dispatch(loginApi(values));
       // const { data } = await axiosInstance().post("/user/login", values);
       // console.log(data, "data");
@@ -110,7 +111,7 @@ const Login = ({ navigation }) => {
                 onBlur={handleBlur("email")}
                 value={values.email}
                 autoFocus={true}
-                autoComplete={false}
+                // autoComplete={false}
               />
               <TextInput
                 placeholder="Password..."
@@ -120,7 +121,7 @@ const Login = ({ navigation }) => {
                 onChangeText={handleChange("password")}
                 onBlur={handleBlur("password")}
                 value={values.password}
-                autoComplete={false}
+                // autoComplete={false}
               />
               <TouchableOpacity
                 style={{
